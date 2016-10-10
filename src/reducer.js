@@ -1,4 +1,10 @@
-export default function reducer(todos={todos:[], visibility: "EVERYTHING"}, action) {
+
+var initialState = {
+  todos:[],
+  visibility: "EVERYTHING"
+};
+
+export default function reducer(todos=initialState, action) {
   switch(action.type) {
     case 'ADD_TODO':
       return Object.assign({}, todos, {todos: todos.todos.concat([action.payload])});
@@ -11,6 +17,8 @@ export default function reducer(todos={todos:[], visibility: "EVERYTHING"}, acti
       })});
     case 'CHANGE_VISIBILITY':
       return Object.assign({}, todos, {visibility: action.payload});
+    case 'REMOVE_COMPLETED':
+      return Object.assign({}, todos, {todos: todos.todos.filter((item) => !item.isDone)});
     default:
       return todos;
   }

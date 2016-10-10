@@ -24,3 +24,9 @@ export function filterTodos(action) {
     payload: action
   };
 }
+
+export function clearCompleted() {
+  return {
+    type: "REMOVE_COMPLETED"
+  };
+}

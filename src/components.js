@@ -6,7 +6,7 @@ exports.TodoList = React.createClass({
       <div>
         <AddTodo addTodo={this.props.addTodo} />
         <Todos toggleTodo={this.props.toggleTodo} todos={this.props.todos} />
-        <FilterTodos filterTodos={this.props.filterTodos} />
+        <FilterTodos filterTodos={this.props.filterTodos} clearCompleted={this.props.clearCompleted}/>
       </div>
     )
   }
@@ -22,10 +22,15 @@ var FilterTodos = React.createClass({
   setActive: function() {
     this.props.filterTodos("ACTIVE");
   },
+  clearCompleted: function() {
+    this.props.clearCompleted();
+  },
   render: function() {
     return (
       <div>
-        <a onClick={this.setEverything}>Everything</a> - <a onClick={this.setCompleted}>Completed</a> - <a onClick={this.setActive}>Active</a>
+        <a onClick={this.setEverything}>Everything</a> -
+        <a onClick={this.setCompleted}>Completed</a> -
+        <a onClick={this.setActive}>Active</a> - <a onClick={this.clearCompleted}>Clear</a>
       </div>
     )
   }
