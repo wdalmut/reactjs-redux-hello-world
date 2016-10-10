@@ -4,8 +4,28 @@ exports.TodoList = React.createClass({
   render: function() {
     return (
       <div>
-        <AddTodo addTodo={this.props.addTodo}/>
+        <AddTodo addTodo={this.props.addTodo} />
         <Todos toggleTodo={this.props.toggleTodo} todos={this.props.todos} />
+        <FilterTodos filterTodos={this.props.filterTodos} />
+      </div>
+    )
+  }
+});
+
+var FilterTodos = React.createClass({
+  setEverything: function() {
+    this.props.filterTodos("EVERYTHING");
+  },
+  setCompleted: function() {
+    this.props.filterTodos("COMPLETED");
+  },
+  setActive: function() {
+    this.props.filterTodos("ACTIVE");
+  },
+  render: function() {
+    return (
+      <div>
+        <a onClick={this.setEverything}>Everything</a> - <a onClick={this.setCompleted}>Completed</a> - <a onClick={this.setActive}>Active</a>
       </div>
     )
   }
@@ -26,10 +46,22 @@ var Todos = React.createClass({
   renderTodo: function(item) {
     return <Todo toggleTodo={this.props.toggleTodo} key={item.id} item={item} />
   },
+  isVisible: function(item) {
+    switch(this.props.todos.visibility) {
+      case "EVERYTHING":
+        return true;
+      case "COMPLETED":
+        return item.isDone;
+      case "ACTIVE":
+        return !item.isDone;
+      default:
+        return false;
+    };
+  },
   render: function() {
     return (
       <ul>
-        {this.props.todos.map(this.renderTodo)}
+        {this.props.todos.todos.filter(this.isVisible).map(this.renderTodo)}
       </ul>
     )
   }

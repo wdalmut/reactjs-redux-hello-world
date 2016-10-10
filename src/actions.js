@@ -17,3 +17,10 @@ export function toggleTodo(id) {
     payload: id
   };
 }
+
+export function filterTodos(action) {
+  return {
+    type: 'CHANGE_VISIBILITY',
+    payload: action
+  };
+}

@@ -1,16 +1,16 @@
-export default function reducer(todos=[], action) {
+export default function reducer(todos={todos:[], visibility: "EVERYTHING"}, action) {
   switch(action.type) {
     case 'ADD_TODO':
-      return todos.concat([action.payload]);
-      break;
+      return Object.assign({}, todos, {todos: todos.todos.concat([action.payload])});
     case 'TOGGLE_TODO':
-      return todos.map(function(item) {
+      return Object.assign({}, todos, {todos: todos.todos.map(function(item) {
         if (item.id === action.payload) {
           item.isDone = !item.isDone;
         }
         return item;
-      });
-      break;
+      })});
+    case 'CHANGE_VISIBILITY':
+      return Object.assign({}, todos, {visibility: action.payload});
     default:
       return todos;
   }
